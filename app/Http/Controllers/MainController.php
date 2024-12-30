@@ -8,4 +8,9 @@ class MainController extends Controller
     {
         return view('main.index');
     }
+
+    public function about()
+    {
+        return view('main.about');
+    }
 }
