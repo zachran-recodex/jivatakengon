@@ -8,6 +8,7 @@ Route::get('/', [MainController::class, 'index'])->name('home');
 
 Route::get('/about', [MainController::class, 'about'])->name('about');
 
+Route::get('/contact', [MainController::class, 'contact'])->name('contact');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
