@@ -18,4 +18,9 @@ class MainController extends Controller
     {
         return view('main.contact');
     }
+
+    public function event()
+    {
+        return view('main.event');
+    }
 }
