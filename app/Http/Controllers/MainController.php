@@ -23,4 +23,9 @@ class MainController extends Controller
     {
         return view('main.event');
     }
+
+    public function gallery()
+    {
+        return view('main.gallery');
+    }
 }

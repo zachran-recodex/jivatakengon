@@ -12,6 +12,8 @@ Route::get('/contact', [MainController::class, 'contact'])->name('contact');
 
 Route::get('/event', [MainController::class, 'event'])->name('event');
 
+Route::get('/gallery', [MainController::class, 'gallery'])->name('gallery');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
