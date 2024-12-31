@@ -28,6 +28,8 @@ class HeroSectionController extends Controller
             $validated['image'] = $request->file('image')->store('hero-sections', 'public');
         }
 
+        $validated['is_active'] = true;
+
         HeroSection::create($validated);
 
         flash()->success('Hero Section created successfully.');
