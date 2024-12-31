@@ -11,20 +11,6 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet"/>
 
-    <style>
-        .user-indicator {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: bold;
-        }
-    </style>
-
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -37,12 +23,6 @@
             {{ $slot }}
         </main>
 
-        <div class="user-indicator capitalize">
-            @if(Auth::user()->hasRole('user'))
-                {{ Auth::user()->name }}
-            @else
-                Role: {{ Auth::user()->getRoleNames()->first() }}
-            @endif
-        </div>
+        <x-role-indicator/>
     </body>
 </html>
