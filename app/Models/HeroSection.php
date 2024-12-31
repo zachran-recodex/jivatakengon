@@ -9,6 +9,7 @@ class HeroSection extends Model
     protected $fillable = [
         'title',
         'description',
-        'image'
+        'image',
+        'is_active'
     ];
 }
