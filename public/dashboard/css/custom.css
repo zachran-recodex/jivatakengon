@@ -1,0 +1,8 @@
+/* flasher */
+.fl-wrapper {
+    z-index: 9999 !important;
+}
+
+.fl-flasher .fl-close {
+    z-index: 10000 !important;
+}
