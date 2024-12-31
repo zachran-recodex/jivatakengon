@@ -16,6 +16,9 @@ Route::get('/gallery', [MainController::class, 'gallery'])->name('gallery');
 
 Route::get('/service', [MainController::class, 'service'])->name('service');
 
+Route::get('/blog', [MainController::class, 'blog'])->name('blog');
+Route::get('/blog/blog-detail', [MainController::class, 'blogDetail'])->name('blog-detail');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

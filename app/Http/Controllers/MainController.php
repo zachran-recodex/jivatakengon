@@ -33,4 +33,14 @@ class MainController extends Controller
     {
         return view('main.service');
     }
+
+    public function blog()
+    {
+        return view('main.blog');
+    }
+
+    public function blogDetail()
+    {
+        return view('main.blog-detail');
+    }
 }
