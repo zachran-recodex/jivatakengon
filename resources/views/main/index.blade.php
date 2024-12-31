@@ -46,32 +46,22 @@
                                 <li class="menu-item">
                                     <a href="{{ route('home') }}">Home</a>
                                 </li>
-                                <li class="menu-item has-children"><a href="#">Tours</a>
+                                <li class="menu-item has-children"><a href="#">Service</a>
                                     <ul class="sub-menu">
-                                        <li><a href="">Tours</a></li>
-                                        <li><a href="">Tours Details</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item has-children"><a href="#">Destination</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="">Destination</a></li>
-                                        <li><a href="">Destination Details</a></li>
+                                        <li><a href="{{ route('service') }}">Service</a></li>
+                                        <li><a href="{{ route('service-detail') }}">Service Details</a></li>
                                     </ul>
                                 </li>
                                 <li class="menu-item has-children"><a href="#">Blog</a>
                                     <ul class="sub-menu">
-                                        <li><a href="">Blog List</a></li>
-                                        <li><a href="">Blog Details</a></li>
+                                        <li><a href="{{ route('blog') }}">Blog List</a></li>
+                                        <li><a href="{{ route('blog-detail') }}">Blog Details</a></li>
                                     </ul>
                                 </li>
                                 <li class="menu-item has-children"><a href="#">Pages</a>
                                     <ul class="sub-menu">
-                                        <li><a href="">About Us</a></li>
-                                        <li><a href="">Our Gallery</a></li>
-                                        <li><a href="">Our Events</a></li>
-                                        <li><a href="">Our Shop</a></li>
-                                        <li><a href="">Product Details</a></li>
-                                        <li><a href="">Contact</a></li>
+                                        <li><a href="{{ route('gallery') }}">Our Gallery</a></li>
+                                        <li><a href="{{ route('event') }}">Our Events</a></li>
                                     </ul>
                                 </li>
                                 <li class="menu-item search-item">
@@ -81,13 +71,13 @@
                         </nav>
                         <!--====== Menu Button ======-->
                         <div class="menu-button mt-40 d-xl-none">
-                            <a href="" class="main-btn secondary-btn">Book Now<i class="fas fa-paper-plane"></i></a>
+                            <a href="{{ route('contact') }}" class="main-btn secondary-btn">Book Now<i class="fas fa-paper-plane"></i></a>
                         </div>
                     </div>
                     <!--====== Nav Right Item ======-->
                     <div class="nav-right-item">
                         <div class="menu-button d-xl-block d-none">
-                            <a href="" class="main-btn primary-btn">Book Now<i class="fas fa-paper-plane"></i></a>
+                            <a href="{{ route('contact') }}" class="main-btn primary-btn">Book Now<i class="fas fa-paper-plane"></i></a>
                         </div>
                         <div class="navbar-toggler">
                             <span></span>
@@ -98,7 +88,8 @@
                 </div>
             </div>
         </div>
-    </header><!--====== End Area ======-->
+    </header>
+    <!--====== End Header Area ======-->
 
     <!--====== Start Hero Section ======-->
     <section class="hero-section">
@@ -1050,5 +1041,6 @@
                 </div>
             </div>
         </div>
-    </section><!--====== End Gallery Section ======-->
+    </section>
+    <!--====== End Gallery Section ======-->
 </x-main-layout>
