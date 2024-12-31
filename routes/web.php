@@ -15,6 +15,7 @@ Route::get('/event', [MainController::class, 'event'])->name('event');
 Route::get('/gallery', [MainController::class, 'gallery'])->name('gallery');
 
 Route::get('/service', [MainController::class, 'service'])->name('service');
+Route::get('/service/service-detail', [MainController::class, 'serviceDetail'])->name('service-detail');
 
 Route::get('/blog', [MainController::class, 'blog'])->name('blog');
 Route::get('/blog/blog-detail', [MainController::class, 'blogDetail'])->name('blog-detail');
