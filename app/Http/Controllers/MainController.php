@@ -28,4 +28,9 @@ class MainController extends Controller
     {
         return view('main.gallery');
     }
+
+    public function service()
+    {
+        return view('main.service');
+    }
 }
