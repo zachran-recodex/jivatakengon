@@ -1,6 +1,6 @@
 <x-dashboard-layout>
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="w-full mx-auto sm:px-6 lg:px-8">
             <div class="pb-4 flex justify-between">
                 <x-dashboard-breadcrumb :links="[
                     ['label' => 'Dashboard', 'url' => route('dashboard')],
@@ -13,7 +13,7 @@
                 </a>
             </div>
 
-            <div class="mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="mx-auto bg-gray-50 border border-gray-200 rounded-lg overflow-hidden">
                 <div class="px-6 py-4">
                     @if($errors->any())
                         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
