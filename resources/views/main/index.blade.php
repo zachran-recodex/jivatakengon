@@ -97,64 +97,67 @@
         <div class="hero-wrapper black-bg">
             <!--=== Hero Slider ===-->
             <div class="hero-slider-one">
-                <!--=== Single Slider ===-->
-                <div class="single-slider">
-                    <div class="container-fluid">
-                        <div class="row align-items-center">
-                            <div class="col-xl-6">
-                                <!--=== Hero Content ===-->
-                                <div class="hero-content text-white">
-                                    <h1 data-animation="fadeInDown" data-delay=".4s">Travel &
-                                        Adventure
-                                        Camping</h1>
-                                    <div class="text-button d-flex align-items-center">
-                                        <p data-animation="fadeInLeft" data-delay=".5s">Nunc et dui nullam aliquam eget
-                                            velit. Consectetur nulla convallis
-                                            viverra quisque eleifend</p>
-                                        <div class="hero-button" data-animation="fadeInRight" data-delay=".6s">
-                                            <a href="" class="main-btn primary-btn">Explore More<i class="fas fa-paper-plane"></i></a>
+                @forelse($heroSections as $heroSection)
+                    <!--=== Single Slider ===-->
+                    <div class="single-slider">
+                        <div class="container-fluid">
+                            <div class="row align-items-center">
+                                <div class="col-xl-6">
+                                    <!--=== Hero Content ===-->
+                                    <div class="hero-content text-white">
+                                        <h1 data-animation="fadeInDown" data-delay=".4s">
+                                            {{ $heroSection->title }}
+                                        </h1>
+                                        <div class="text-button d-flex align-items-center">
+                                            <p data-animation="fadeInLeft" data-delay=".5s">
+                                                {{ $heroSection->description }}
+                                            </p>
+                                            <div class="hero-button" data-animation="fadeInRight" data-delay=".6s">
+                                                <a href="{{ route('about') }}" class="main-btn primary-btn">Explore More<i class="fas fa-paper-plane"></i></a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <!--=== Hero Image ===-->
-                                <div class="hero-image" data-animation="fadeInRight">
-                                    <img src="{{ asset('main/images/hero/hero-one_img-1.jpg') }}" alt="Hero Image">
+                                <div class="col-xl-6">
+                                    <!--=== Hero Image ===-->
+                                    <div class="hero-image" data-animation="fadeInRight">
+                                        <img src="{{ asset('storage/' . $heroSection->image) }}" alt="{{ $heroSection->title }}">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!--=== Single Slider ===-->
-                <div class="single-slider">
-                    <div class="container-fluid">
-                        <div class="row align-items-center">
-                            <div class="col-xl-6">
-                                <!--=== Hero Content ===-->
-                                <div class="hero-content text-white">
-                                    <h1 data-animation="fadeInDown" data-delay=".4s">Travel &
-                                        Adventure
-                                        Tour</h1>
-                                    <div class="text-button d-flex align-items-center">
-                                        <p data-animation="fadeInLeft" data-delay=".5s">Nunc et dui nullam aliquam eget
-                                            velit. Consectetur nulla convallis
-                                            viverra quisque eleifend</p>
-                                        <div class="hero-button" data-animation="fadeInRight" data-delay=".6s">
-                                            <a href="" class="main-btn primary-btn">Explore More<i class="fas fa-paper-plane"></i></a>
+                @empty
+                    <!--=== Single Slider ===-->
+                    <div class="single-slider">
+                        <div class="container-fluid">
+                            <div class="row align-items-center">
+                                <div class="col-xl-6">
+                                    <!--=== Hero Content ===-->
+                                    <div class="hero-content text-white">
+                                        <h1 data-animation="fadeInDown" data-delay=".4s">
+                                            No Data Found
+                                        </h1>
+                                        <div class="text-button d-flex align-items-center">
+                                            <p data-animation="fadeInLeft" data-delay=".5s">
+                                                No Data Found
+                                            </p>
+                                            <div class="hero-button" data-animation="fadeInRight" data-delay=".6s">
+                                                <a href="#" class="main-btn primary-btn">No Data Found<i class="fas fa-paper-plane"></i></a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <!--=== Hero Image ===-->
-                                <div class="hero-image" data-animation="fadeInRight">
-                                    <img src="{{ asset('main/images/hero/hero-one_img-2.jpg') }}" alt="Hero Image">
+                                <div class="col-xl-6">
+                                    <!--=== Hero Image ===-->
+                                    <div class="hero-image" data-animation="fadeInRight">
+                                        <img src="{{ asset('main/images/hero/hero-one_img-1.jpg') }}" alt="Hero Image">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endforelse
             </div>
         </div>
     </section>

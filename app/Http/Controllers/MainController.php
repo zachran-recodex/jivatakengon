@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HeroSection;
+
 class MainController extends Controller
 {
     public function index()
     {
-        return view('main.index');
+        $heroSections = HeroSection::where('is_active', true)->get();
+        return view('main.index', compact('heroSections'));
     }
 
     public function about()
