@@ -30,27 +30,30 @@
                         @csrf
                         @method('PUT')
 
-                        <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
-                                Title
-                            </label>
-                            <input type="text"
-                                   name="title"
-                                   id="title"
-                                   class="appearance-none border border-gray-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                   value="{{ old('title', $heroSection->title) }}"
-                                   required>
-                        </div>
+                        <div class="mb-4 flex items-center justify-between gap-4">
+                            <div class="w-full">
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
+                                    Title
+                                </label>
+                                <input type="text"
+                                       name="title"
+                                       id="title"
+                                       class="appearance-none border border-gray-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                       value="{{ old('title', $heroSection->title) }}"
+                                       required>
+                            </div>
 
-                        <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="description">
-                                Description
-                            </label>
-                            <textarea name="description"
-                                      id="description"
-                                      class="appearance-none border border-gray-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                      rows="3"
-                                      required>{{ old('description', $heroSection->description) }}</textarea>
+                            <div class="w-full">
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="description">
+                                    Subtitle
+                                </label>
+                                <input type="text"
+                                       name="subtitle"
+                                       id="subtitle"
+                                       class="appearance-none border border-gray-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                       value="{{ old('subtitle', $heroSection->subtitle) }}"
+                                       required>
+                            </div>
                         </div>
 
                         <div class="mb-4 flex items-center justify-between gap-4">

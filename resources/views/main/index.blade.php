@@ -110,7 +110,7 @@
                                         </h1>
                                         <div class="text-button d-flex align-items-center">
                                             <p data-animation="fadeInLeft" data-delay=".5s">
-                                                {{ $heroSection->description }}
+                                                {{ $heroSection->subtitle }}
                                             </p>
                                             <div class="hero-button" data-animation="fadeInRight" data-delay=".6s">
                                                 <a href="{{ route('about') }}" class="main-btn primary-btn">Explore More<i class="fas fa-paper-plane"></i></a>

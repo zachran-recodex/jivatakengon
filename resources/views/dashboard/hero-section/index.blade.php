@@ -17,7 +17,7 @@
                     <thead class="bg-gray-200">
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Title</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Description</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Subtitle</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Image</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Action</th>
@@ -27,7 +27,7 @@
                     @forelse($heroSections as $heroSection)
                         <tr>
                             <td class="px-6 py-4">{{ $heroSection->title }}</td>
-                            <td class="px-6 py-4 text-wrap max-w-[300px]">{{ $heroSection->description }}</td>
+                            <td class="px-6 py-4 text-wrap max-w-[300px]">{{ $heroSection->subtitle }}</td>
                             <td class="px-6 py-4">
                                 @if($heroSection->image)
                                     <img src="{{ asset('storage/' . $heroSection->image) }}" alt="{{ $heroSection->title }}" class="w-16 h-16 border object-cover rounded">

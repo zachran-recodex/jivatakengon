@@ -24,7 +24,7 @@ class HeroSectionUpdateRequest extends FormRequest
     {
         return [
             'title' => 'sometimes|string|max:255',
-            'description' => 'sometimes|string',
+            'subtitle' => 'sometimes|string|max:255',
             'image' => 'sometimes|image|mimes:jpeg,png,jpg|max:2048',
             'is_active' => 'sometimes|boolean'
         ];
