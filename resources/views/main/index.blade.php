@@ -628,90 +628,33 @@
     <section class="features-section pb-60">
         <div class="container">
             <div class="row">
-                <div class="col-xl-4 col-lg-6 col-md-12">
-                    <!--=== Fancy Icon Box ===-->
-                    <div class="fancy-icon-box mb-30 wow fadeInUp">
-                        <div class="icon">
-                            <i class="flaticon-rabbit"></i>
-                        </div>
-                        <div class="text">
-                            <h4 class="title">Best Security</h4>
-                            <p>we denounce with righteous
-                                indignation and dislike men
-                                who are so beguiled</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-6 col-md-12">
-                    <!--=== Fancy Icon Box ===-->
-                    <div class="fancy-icon-box mb-30 wow fadeInUp">
-                        <div class="icon">
-                            <i class="flaticon-wifi-router"></i>
-                        </div>
-                        <div class="text">
-                            <h4 class="title">Free Internet</h4>
-                            <p>we denounce with righteous
-                                indignation and dislike men
-                                who are so beguiled</p>
+                @forelse($facilities as $facility)
+                    <div class="col-xl-4 col-lg-6 col-md-12">
+                        <!--=== Fancy Icon Box ===-->
+                        <div class="fancy-icon-box mb-30 wow fadeInUp">
+                            <div class="icon">
+                                <i class="{{ $facility->icon }}"></i>
+                            </div>
+                            <div class="text">
+                                <h4 class="title">{{ $facility->title }}</h4>
+                                <p>{{ $facility->subtitle }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xl-4 col-lg-6 col-md-12">
-                    <!--=== Fancy Icon Box ===-->
-                    <div class="fancy-icon-box mb-30 wow fadeInUp">
-                        <div class="icon">
-                            <i class="flaticon-solar-energy"></i>
-                        </div>
-                        <div class="text">
-                            <h4 class="title">Solar Energy</h4>
-                            <p>we denounce with righteous
-                                indignation and dislike men
-                                who are so beguiled</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-6 col-md-12">
-                    <!--=== Fancy Icon Box ===-->
-                    <div class="fancy-icon-box mb-30 wow fadeInUp">
-                        <div class="icon">
-                            <i class="flaticon-cycling"></i>
-                        </div>
-                        <div class="text">
-                            <h4 class="title">Mountain Biking</h4>
-                            <p>we denounce with righteous
-                                indignation and dislike men
-                                who are so beguiled</p>
+                @empty
+                    <div class="col-xl-4 col-lg-6 col-md-12">
+                        <!--=== Fancy Icon Box ===-->
+                        <div class="fancy-icon-box mb-30 wow fadeInUp">
+                            <div class="icon">
+                                <i class="flaticon-rabbit"></i>
+                            </div>
+                            <div class="text">
+                                <h4 class="title">No Data Found</h4>
+                                <p>No Data Found</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xl-4 col-lg-6 col-md-12">
-                    <!--=== Fancy Icon Box ===-->
-                    <div class="fancy-icon-box mb-30 wow fadeInUp">
-                        <div class="icon">
-                            <i class="flaticon-fishing"></i>
-                        </div>
-                        <div class="text">
-                            <h4 class="title">Swimming & Fishing </h4>
-                            <p>we denounce with righteous
-                                indignation and dislike men
-                                who are so beguiled</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-6 col-md-12">
-                    <!--=== Fancy Icon Box ===-->
-                    <div class="fancy-icon-box mb-30 wow fadeInUp">
-                        <div class="icon">
-                            <i class="flaticon-gym"></i>
-                        </div>
-                        <div class="text">
-                            <h4 class="title">GYM and Yoga</h4>
-                            <p>we denounce with righteous
-                                indignation and dislike men
-                                who are so beguiled</p>
-                        </div>
-                    </div>
-                </div>
+                @endforelse
             </div>
         </div>
     </section>
