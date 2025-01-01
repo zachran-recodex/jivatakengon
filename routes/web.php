@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\ProfileController;
+use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\HeroSectionController;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,8 @@ Route::middleware(['verified', 'auth'])->prefix('dashboard')->group(function () 
 
     Route::name('admin.')->group(function () {
         Route::resource('hero-section', HeroSectionController::class);
+
+        Route::resource('facility', FacilityController::class);
     });
 
 });
