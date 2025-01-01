@@ -46,6 +46,9 @@
                                 <li class="menu-item">
                                     <a href="{{ route('home') }}">Home</a>
                                 </li>
+                                <li class="menu-item">
+                                    <a href="{{ route('about') }}">About Us</a>
+                                </li>
                                 <li class="menu-item has-children"><a href="#">Service</a>
                                     <ul class="sub-menu">
                                         <li><a href="{{ route('service') }}">Service</a></li>
