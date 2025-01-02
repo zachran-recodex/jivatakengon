@@ -14,19 +14,29 @@ class AccommodationSeeder extends Seeder
     {
         $accommodations = [
             [
-                'title' => 'Welcome to Our Website',
-                'subtitle' => 'We offer the best solutions for your business needs. Let us help you succeed.',
-                'image' => 'accommodations/default1.jpg',
+                'title' => 'Cozy Camping Tents',
+                'subtitle' => 'Experience the outdoors with our high-quality and comfortable camping tents.',
+                'image' => 'main/images/service/service-1.jpg',
             ],
             [
-                'title' => 'Innovative Solutions',
-                'subtitle' => 'Our team delivers innovative and customized solutions for your growth.',
-                'image' => 'accommodations/default2.jpg',
+                'title' => 'Campfire Nights',
+                'subtitle' => 'Enjoy warm campfire evenings with your friends and family.',
+                'image' => 'main/images/service/service-1.jpg',
             ],
             [
-                'title' => 'Your Trusted Partner',
-                'subtitle' => 'We value trust and transparency in our business relationships.',
-                'image' => 'accommodations/default3.jpg',
+                'title' => 'Luxury Glamping',
+                'subtitle' => 'Combine the thrill of camping with the comfort of a luxury stay.',
+                'image' => 'main/images/service/service-1.jpg',
+            ],
+            [
+                'title' => 'Nature Trails',
+                'subtitle' => 'Explore beautiful trails and reconnect with nature during your stay.',
+                'image' => 'main/images/service/service-1.jpg',
+            ],
+            [
+                'title' => 'Outdoor Adventures',
+                'subtitle' => 'Experience thrilling outdoor activities such as hiking, fishing, and more.',
+                'image' => 'main/images/service/service-1.jpg',
             ],
         ];
 

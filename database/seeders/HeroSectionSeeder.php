@@ -14,19 +14,19 @@ class HeroSectionSeeder extends Seeder
     {
         $heroSections = [
             [
-                'title' => 'Welcome to Our Website',
-                'subtitle' => 'We offer the best solutions for your business needs. Let us help you succeed.',
-                'image' => 'hero-sections/default1.jpg',
+                'title' => 'Discover the Great Outdoors',
+                'subtitle' => 'Escape the hustle and immerse yourself in the beauty of nature.',
+                'image' => 'main/images/hero/hero-one_img-1.jpg',
             ],
             [
-                'title' => 'Innovative Solutions',
-                'subtitle' => 'Our team delivers innovative and customized solutions for your growth.',
-                'image' => 'hero-sections/default2.jpg',
+                'title' => 'Adventure Awaits',
+                'subtitle' => 'Experience unforgettable moments under the stars.',
+                'image' => 'main/images/hero/hero-one_img-1.jpg',
             ],
             [
-                'title' => 'Your Trusted Partner',
-                'subtitle' => 'We value trust and transparency in our business relationships.',
-                'image' => 'hero-sections/default3.jpg',
+                'title' => 'Connect with Nature',
+                'subtitle' => 'Find peace and tranquility in breathtaking landscapes.',
+                'image' => 'main/images/hero/hero-one_img-1.jpg',
             ],
         ];
 

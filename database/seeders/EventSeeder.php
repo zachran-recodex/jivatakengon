@@ -14,33 +14,33 @@ class EventSeeder extends Seeder
     {
         $events = [
             [
-                'title' => 'Tech Innovation Expo 2025',
-                'image' => 'events/tech-innovation-expo.jpg',
+                'title' => 'Mountain Escape Camp',
+                'image' => 'main/images/event/event-1.jpg',
                 'event_date' => '2025-03-15',
                 'is_active' => true,
             ],
             [
-                'title' => 'Health & Wellness Conference',
-                'image' => 'events/health-wellness-conference.jpg',
+                'title' => 'Forest Night Adventure',
+                'image' => 'main/images/event/event-1.jpg',
                 'event_date' => '2025-04-10',
                 'is_active' => true,
             ],
             [
-                'title' => 'Sustainable Energy Summit',
-                'image' => 'events/sustainable-energy-summit.jpg',
+                'title' => 'Riverfront Camping Retreat',
+                'image' => 'main/images/event/event-1.jpg',
                 'event_date' => '2025-05-20',
                 'is_active' => true,
             ],
             [
-                'title' => 'Digital Marketing Workshop',
-                'image' => 'events/digital-marketing-workshop.jpg',
-                'event_date' => '2025-02-25',
-                'is_active' => false,
+                'title' => 'Family Fun Camp Weekend',
+                'image' => 'main/images/event/event-1.jpg',
+                'event_date' => '2025-06-15',
+                'is_active' => true,
             ],
             [
-                'title' => 'AI & Machine Learning Hackathon',
-                'image' => 'events/ai-ml-hackathon.jpg',
-                'event_date' => '2025-06-05',
+                'title' => 'Starry Sky Camping Experience',
+                'image' => 'main/images/event/event-1.jpg',
+                'event_date' => '2025-07-05',
                 'is_active' => true,
             ],
         ];
