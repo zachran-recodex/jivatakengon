@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Accommodation;
+use App\Models\Event;
 use App\Models\Facility;
 use App\Models\HeroSection;
 
@@ -29,7 +30,9 @@ class MainController extends Controller
 
     public function event()
     {
-        return view('main.event');
+        $events = Event::where('is_active', true)->get();
+
+        return view('main.event', compact('events'));
     }
 
     public function gallery()

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Dashboard\AccommodationController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\EventController;
 use App\Http\Controllers\Dashboard\FacilityController;
 use App\Http\Controllers\Dashboard\HeroSectionController;
 use App\Http\Controllers\Dashboard\ProfileController;
@@ -37,6 +38,8 @@ Route::middleware(['verified', 'auth'])->prefix('dashboard')->group(function () 
         Route::resource('facility', FacilityController::class);
 
         Route::resource('accommodation', AccommodationController::class);
+
+        Route::resource('event', EventController::class);
     });
 
 });

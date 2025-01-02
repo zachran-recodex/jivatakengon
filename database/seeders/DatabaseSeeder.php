@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             HeroSectionSeeder::class,
             FacilitySeeder::class,
             AccommodationSeeder::class,
+            EventSeeder::class,
         ]);
     }
 }

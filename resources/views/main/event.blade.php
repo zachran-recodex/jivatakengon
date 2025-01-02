@@ -79,138 +79,41 @@
                 </div>
             </div>
             <div class="row justify-content-center">
-                <div class="col-xl-4 col-md-6 col-sm-12">
-                    <div class="single-event-item mb-30 wow fadeInUp">
-                        <div class="img-holder">
-                            <img src="{{ asset('main/images/event/event-1.jpg') }}" alt="Event Image">
-                        </div>
-                        <div class="content">
-                            <div class="meta">
-                                <span><i class="far fa-calendar-alt"></i><a href="#">September 25, 2022</a></span>
-                                <h3 class="title"><a href="#">How To Enjoy Adventure
-                                        Trip With Gowilds</a></h3>
-                                <p class="location"><i class="far fa-map-marker-alt"></i> Gaafu Dhaalu Atoll, Maldives</p>
+                @forelse($events as $event)
+                    <div class="col-xl-4 col-md-6 col-sm-12">
+                        <div class="single-event-item mb-30 wow fadeInUp">
+                            <div class="img-holder">
+                                <img src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->title }}">
+                            </div>
+                            <div class="content">
+                                <div class="meta">
+                                    <span><i class="far fa-calendar-alt"></i><a href="#">{{ $event->event_date }}</a></span>
+                                    <h3 class="title">
+                                        <a href="#">
+                                            {{ $event->title }}
+                                        </a>
+                                    </h3>
+                                    <p class="location"><i class="far fa-map-marker-alt"></i> Gaafu Dhaalu Atoll, Maldives</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xl-4 col-md-6 col-sm-12">
-                    <div class="single-event-item mb-30 wow fadeInUp">
-                        <div class="img-holder">
-                            <img src="{{ asset('main/images/event/event-2.jpg') }}" alt="Event Image">
-                        </div>
-                        <div class="content">
-                            <div class="meta">
-                                <span><i class="far fa-calendar-alt"></i><a href="#">September 25, 2022</a></span>
-                                <h3 class="title"><a href="#">Great Advice For Build Awesome Mintality</a></h3>
-                                <p class="location"><i class="far fa-map-marker-alt"></i> Gaafu Dhaalu Atoll, Maldives</p>
+                @empty
+                    <div class="col-xl-4 col-md-6 col-sm-12">
+                        <div class="single-event-item mb-30 wow fadeInUp">
+                            <div class="img-holder">
+                                <img src="{{ asset('main/images/event/event-1.jpg') }}" alt="Event Image">
+                            </div>
+                            <div class="content">
+                                <div class="meta">
+                                    <span><i class="far fa-calendar-alt"></i><a href="#">No Data Found</a></span>
+                                    <h3 class="title"><a href="#">No Data Found</a></h3>
+                                    <p class="location"><i class="far fa-map-marker-alt"></i> No Data Found</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xl-4 col-md-6 col-sm-12">
-                    <div class="single-event-item mb-30 wow fadeInUp">
-                        <div class="img-holder">
-                            <img src="{{ asset('main/images/event/event-3.jpg') }}" alt="Event Image">
-                        </div>
-                        <div class="content">
-                            <div class="meta">
-                                <span><i class="far fa-calendar-alt"></i><a href="#">September 25, 2022</a></span>
-                                <h3 class="title"><a href="#">How To Enjoy Adventure
-                                        Trip With Gowilds</a></h3>
-                                <p class="location"><i class="far fa-map-marker-alt"></i> Gaafu Dhaalu Atoll, Maldives</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-md-6 col-sm-12">
-                    <div class="single-event-item mb-30 wow fadeInUp">
-                        <div class="img-holder">
-                            <img src="{{ asset('main/images/event/event-4.jpg') }}" alt="Event Image">
-                        </div>
-                        <div class="content">
-                            <div class="meta">
-                                <span><i class="far fa-calendar-alt"></i><a href="#">September 25, 2022</a></span>
-                                <h3 class="title"><a href="#">How To Enjoy Adventure
-                                        Trip With Gowilds</a></h3>
-                                <p class="location"><i class="far fa-map-marker-alt"></i> Gaafu Dhaalu Atoll, Maldives</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-md-6 col-sm-12">
-                    <div class="single-event-item mb-30 wow fadeInUp">
-                        <div class="img-holder">
-                            <img src="{{ asset('main/images/event/event-5.jpg') }}" alt="Event Image">
-                        </div>
-                        <div class="content">
-                            <div class="meta">
-                                <span><i class="far fa-calendar-alt"></i><a href="#">September 25, 2022</a></span>
-                                <h3 class="title"><a href="#">Grocery & Specialty For Food West</a></h3>
-                                <p class="location"><i class="far fa-map-marker-alt"></i> Gaafu Dhaalu Atoll, Maldives</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-md-6 col-sm-12">
-                    <div class="single-event-item mb-30 wow fadeInUp">
-                        <div class="img-holder">
-                            <img src="{{ asset('main/images/event/event-6.jpg') }}" alt="Event Image">
-                        </div>
-                        <div class="content">
-                            <div class="meta">
-                                <span><i class="far fa-calendar-alt"></i><a href="#">September 25, 2022</a></span>
-                                <h3 class="title"><a href="#">Vancouver International Travel Expo</a></h3>
-                                <p class="location"><i class="far fa-map-marker-alt"></i> Gaafu Dhaalu Atoll, Maldives</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-md-6 col-sm-12">
-                    <div class="single-event-item mb-30 wow fadeInUp">
-                        <div class="img-holder">
-                            <img src="{{ asset('main/images/event/event-7.jpg') }}" alt="Event Image">
-                        </div>
-                        <div class="content">
-                            <div class="meta">
-                                <span><i class="far fa-calendar-alt"></i><a href="#">September 25, 2022</a></span>
-                                <h3 class="title"><a href="#">How To Enjoy Adventure
-                                        Trip With Gowilds</a></h3>
-                                <p class="location"><i class="far fa-map-marker-alt"></i> Gaafu Dhaalu Atoll, Maldives</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-md-6 col-sm-12">
-                    <div class="single-event-item mb-30 wow fadeInUp">
-                        <div class="img-holder">
-                            <img src="{{ asset('main/images/event/event-8.jpg') }}" alt="Event Image">
-                        </div>
-                        <div class="content">
-                            <div class="meta">
-                                <span><i class="far fa-calendar-alt"></i><a href="#">September 25, 2022</a></span>
-                                <h3 class="title"><a href="#">How To Enjoy Adventure
-                                        Trip With Gowilds</a></h3>
-                                <p class="location"><i class="far fa-map-marker-alt"></i> Gaafu Dhaalu Atoll, Maldives</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-md-6 col-sm-12">
-                    <div class="single-event-item mb-30 wow fadeInUp">
-                        <div class="img-holder">
-                            <img src="{{ asset('main/images/event/event-9.jpg') }}" alt="Event Image">
-                        </div>
-                        <div class="content">
-                            <div class="meta">
-                                <span><i class="far fa-calendar-alt"></i><a href="#">September 25, 2022</a></span>
-                                <h3 class="title"><a href="#">How To Enjoy Adventure
-                                        Trip With Gowilds</a></h3>
-                                <p class="location"><i class="far fa-map-marker-alt"></i> Gaafu Dhaalu Atoll, Maldives</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforelse
             </div>
             <div class="row">
                 <div class="col-lg-12">
