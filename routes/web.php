@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\AccommodationController;
+use App\Http\Controllers\Dashboard\AccommodationController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\FacilityController;
+use App\Http\Controllers\Dashboard\HeroSectionController;
 use App\Http\Controllers\Dashboard\ProfileController;
-use App\Http\Controllers\FacilityController;
-use App\Http\Controllers\HeroSectionController;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 
