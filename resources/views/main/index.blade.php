@@ -550,78 +550,43 @@
                 </div>
             </div>
             <div class="slider-active-3-item wow fadeInUp">
-                <!--=== Single Service Item ===-->
-                <div class="single-service-item mb-40">
-                    <div class="content">
-                        <h3 class="title"><a href="">Classic Tents</a></h3>
-                        <p>Sit amet consecteturauris natoque name
-                            pellentue augue mattis faucibus</p>
-                        <div class="meta">
-                            <span class="icon"><i class="flaticon-blanket"></i></span>
-                            <span class="icon"><i class="flaticon-cat"></i></span>
-                            <span class="icon"><i class="flaticon-tent"></i></span>
-                            <span class="icon"><i class="flaticon-fire"></i></span>
+                @forelse ($accommodations as $accommodation)
+                    <!--=== Single Service Item ===-->
+                    <div class="single-service-item mb-40">
+                        <div class="content">
+                            <h3 class="title"><a href="{{ route('home') }}">{{ $accommodation->title }}</a></h3>
+                            <p>{{ $accommodation->subtitle }}</p>
+                            <div class="meta">
+                                <span class="icon"><i class="flaticon-blanket"></i></span>
+                                <span class="icon"><i class="flaticon-cat"></i></span>
+                                <span class="icon"><i class="flaticon-tent"></i></span>
+                                <span class="icon"><i class="flaticon-fire"></i></span>
+                            </div>
+                            <a href="{{ route('service') }}" class="icon-btn"><i class="far fa-arrow-right"></i></a>
                         </div>
-                        <a href="#" class="icon-btn"><i class="far fa-arrow-right"></i></a>
-                    </div>
-                    <div class="img-holder">
-                        <img src="{{ asset('main/images/service/service-1.jpg') }}" alt="Service Image">
-                    </div>
-                </div>
-                <!--=== Single Service Item ===-->
-                <div class="single-service-item mb-40">
-                    <div class="content">
-                        <h3 class="title"><a href="">Glamping Cabin</a></h3>
-                        <p>Sit amet consecteturauris natoque name
-                            pellentue augue mattis faucibus</p>
-                        <div class="meta">
-                            <span class="icon"><i class="flaticon-blanket"></i></span>
-                            <span class="icon"><i class="flaticon-cat"></i></span>
-                            <span class="icon"><i class="flaticon-tent"></i></span>
-                            <span class="icon"><i class="flaticon-fire"></i></span>
+                        <div class="img-holder">
+                            <img src="{{ asset('storage/' . $accommodation->image) }}" alt="{{ $accommodation->title }}">
                         </div>
-                        <a href="#" class="icon-btn"><i class="far fa-arrow-right"></i></a>
                     </div>
-                    <div class="img-holder">
-                        <img src="{{ asset('main/images/service/service-2.jpg') }}" alt="Service Image">
-                    </div>
-                </div>
-                <!--=== Single Service Item ===-->
-                <div class="single-service-item mb-40">
-                    <div class="content">
-                        <h3 class="title"><a href="">RV Luxury Tent</a></h3>
-                        <p>Sit amet consecteturauris natoque name
-                            pellentue augue mattis faucibus</p>
-                        <div class="meta">
-                            <span class="icon"><i class="flaticon-blanket"></i></span>
-                            <span class="icon"><i class="flaticon-cat"></i></span>
-                            <span class="icon"><i class="flaticon-tent"></i></span>
-                            <span class="icon"><i class="flaticon-fire"></i></span>
+                @empty
+                    <!--=== Single Service Item ===-->
+                    <div class="single-service-item mb-40">
+                        <div class="content">
+                            <h3 class="title"><a href="#">No Data Found</a></h3>
+                            <p>No Data Found</p>
+                            <div class="meta">
+                                <span class="icon"><i class="flaticon-blanket"></i></span>
+                                <span class="icon"><i class="flaticon-cat"></i></span>
+                                <span class="icon"><i class="flaticon-tent"></i></span>
+                                <span class="icon"><i class="flaticon-fire"></i></span>
+                            </div>
+                            <a href="#" class="icon-btn"><i class="far fa-arrow-right"></i></a>
                         </div>
-                        <a href="#" class="icon-btn"><i class="far fa-arrow-right"></i></a>
-                    </div>
-                    <div class="img-holder">
-                        <img src="{{ asset('main/images/service/service-3.jpg') }}" alt="Service Image">
-                    </div>
-                </div>
-                <!--=== Single Service Item ===-->
-                <div class="single-service-item mb-40">
-                    <div class="content">
-                        <h3 class="title"><a href="">RV Luxury Tent</a></h3>
-                        <p>Sit amet consecteturauris natoque name
-                            pellentue augue mattis faucibus</p>
-                        <div class="meta">
-                            <span class="icon"><i class="flaticon-blanket"></i></span>
-                            <span class="icon"><i class="flaticon-cat"></i></span>
-                            <span class="icon"><i class="flaticon-tent"></i></span>
-                            <span class="icon"><i class="flaticon-fire"></i></span>
+                        <div class="img-holder">
+                            <img src="{{ asset('main/images/service/service-1.jpg') }}" alt="Service Image">
                         </div>
-                        <a href="#" class="icon-btn"><i class="far fa-arrow-right"></i></a>
                     </div>
-                    <div class="img-holder">
-                        <img src="{{ asset('main/images/service/service-2.jpg') }}" alt="Service Image">
-                    </div>
-                </div>
+                @endforelse
             </div>
         </div>
     </section>

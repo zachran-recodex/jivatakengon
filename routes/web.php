@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccommodationController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\FacilityController;
@@ -34,6 +35,8 @@ Route::middleware(['verified', 'auth'])->prefix('dashboard')->group(function () 
         Route::resource('hero-section', HeroSectionController::class);
 
         Route::resource('facility', FacilityController::class);
+
+        Route::resource('accommodation', AccommodationController::class);
     });
 
 });

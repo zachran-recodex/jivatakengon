@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Accommodation;
 use App\Models\Facility;
 use App\Models\HeroSection;
 
@@ -11,8 +12,9 @@ class MainController extends Controller
     {
         $heroSections = HeroSection::where('is_active', true)->get();
         $facilities = Facility::where('is_active', true)->get();
+        $accommodations = Accommodation::where('is_active', true)->get();
 
-        return view('main.index', compact('heroSections', 'facilities'));
+        return view('main.index', compact('heroSections', 'facilities', 'accommodations'));
     }
 
     public function about()
