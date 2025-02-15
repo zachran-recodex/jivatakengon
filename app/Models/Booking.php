@@ -7,7 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Booking extends Model
 {
     protected $fillable = [
-        'date', 'name', 'glamping', 'villa', 'tent', 'total_tents', 'dp', 'transfer_date', 'note'
+        'date',
+        'name',
+        'glamping',
+        'villa',
+        'tent',
+        'total_tents',
+        'dp',
+        'transfer_date',
+        'note'
     ];
 
     protected $casts = [
