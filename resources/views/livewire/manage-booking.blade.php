@@ -5,7 +5,7 @@
             <h1 class="text-2xl font-semibold text-shark-950">Manage Booking</h1>
         </div>
         <button wire:click="create()"
-            class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-primary-500 rounded-md hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+            class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary/80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
             <i class="fa-solid fa-plus mr-2"></i>
             Add New Booking
         </button>
@@ -138,7 +138,7 @@
                     <div class="mb-4">
                         <label for="date" class="block text-sm font-medium text-gray-700">Date</label>
                         <input type="date" wire:model.defer="date" id="date"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm">
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm">
                         @error('date')
                             <span class="text-red-500 text-xs">{{ $message }}</span>
                         @enderror
@@ -148,7 +148,7 @@
                     <div class="mb-4">
                         <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
                         <input type="text" wire:model.defer="name" id="name"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm">
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm">
                         @error('name')
                             <span class="text-red-500 text-xs">{{ $message }}</span>
                         @enderror
@@ -161,7 +161,7 @@
                             @foreach ([1 => '1', 2 => '2', 3 => '3', 4 => '4', 5 => '5'] as $value => $label)
                                 <label class="flex items-center space-x-2">
                                     <input type="checkbox" wire:model.defer="glamping" value="{{ $value }}"
-                                        class="rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+                                        class="rounded border-gray-300 text-primary focus:ring-primary">
                                     <span class="text-sm text-gray-700">{{ $label }}</span>
                                 </label>
                             @endforeach
@@ -178,7 +178,7 @@
                             @foreach (['A' => 'A', 'B' => 'B', 'C' => 'C'] as $value => $label)
                                 <label class="flex items-center space-x-2">
                                     <input type="checkbox" wire:model.defer="villa" value="{{ $value }}"
-                                        class="rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+                                        class="rounded border-gray-300 text-primary focus:ring-primary">
                                     <span class="text-sm text-gray-700">{{ $label }}</span>
                                 </label>
                             @endforeach
@@ -192,7 +192,7 @@
                     <div class="mb-4">
                         <label for="tent" class="block text-sm font-medium text-gray-700">Tent</label>
                         <input type="number" wire:model.defer="tent" id="tent"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm">
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm">
                         @error('tent')
                             <span class="text-red-500 text-xs">{{ $message }}</span>
                         @enderror
@@ -202,7 +202,7 @@
                     <div class="mb-4">
                         <label for="total_tents" class="block text-sm font-medium text-gray-700">Total Tenda</label>
                         <input type="number" wire:model.defer="total_tents" id="total_tents"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm">
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm">
                         @error('total_tents')
                             <span class="text-red-500 text-xs">{{ $message }}</span>
                         @enderror
@@ -213,7 +213,7 @@
                         <label for="dp" class="block text-sm font-medium text-gray-700">Down Payment
                             (DP)</label>
                         <input type="number" wire:model.defer="dp" id="dp"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm">
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm">
                         @error('dp')
                             <span class="text-red-500 text-xs">{{ $message }}</span>
                         @enderror
@@ -224,7 +224,7 @@
                         <label for="transfer_date" class="block text-sm font-medium text-gray-700">Transfer
                             Date</label>
                         <input type="date" wire:model.defer="transfer_date" id="transfer_date"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm">
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm">
                         @error('transfer_date')
                             <span class="text-red-500 text-xs">{{ $message }}</span>
                         @enderror
@@ -234,7 +234,7 @@
                     <div class="mb-4 col-span-2">
                         <label for="note" class="block text-sm font-medium text-gray-700">Note</label>
                         <textarea wire:model.defer="note" id="note"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm"></textarea>
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"></textarea>
                         @error('note')
                             <span class="text-red-500 text-xs">{{ $message }}</span>
                         @enderror
@@ -249,7 +249,7 @@
                     Cancel
                 </button>
                 <button type="submit"
-                    class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-primary-500 rounded-md hover:bg-primary-600">
+                    class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary/80">
                     Save
                 </button>
             </div>

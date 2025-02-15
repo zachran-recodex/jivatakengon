@@ -20,35 +20,38 @@
 
             <!-- Profile dropdown -->
             <div x-data="{ open: false }" class="relative">
-                <button @click="open = !open" class="flex items-center py-1.5 px-2 hover:bg-primary-100 rounded-lg">
+                <button @click="open = !open" class="flex items-center py-1.5 px-2 hover:bg-primary/10 rounded-lg">
                     <span class="sr-only">Open user menu</span>
-                    <div class="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center">
-                        <h3 class="text-primary-600 font-medium text-sm">
+                    <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                        <h3 class="text-primary font-medium text-sm">
                             {{ substr(Auth::user()->name, 0, 2) }}
                         </h3>
                     </div>
                     <div class="hidden lg:flex lg:items-center">
-                        <h3 class="ml-4 text-sm font-semibold leading-6 text-shark-900"
-                            aria-hidden="true">{{ Auth::user()->name }}
+                        <h3 class="ml-4 text-sm font-semibold leading-6 text-primary" aria-hidden="true">
+                            {{ Auth::user()->name }}
                         </h3>
                     </div>
                 </button>
 
                 <div x-show="open" @click.away="open = false"
-                     class="absolute right-0 z-10 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                     role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
-                     tabindex="-1">
-                    <a href="{{ route('profile.show') }}" class="flex px-4 py-2 text-sm text-shark-700 hover:bg-shark-100" role="menuitem" tabindex="-1">
+                    class="absolute right-0 z-10 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                    <a href="{{ route('profile.show') }}"
+                        class="flex px-4 py-2 text-sm text-shark-700 hover:bg-shark-100" role="menuitem" tabindex="-1">
                         <i class="fa-solid fa-user text-lg mr-2"></i>
                         My Profile
                     </a>
-                    <a href="" class="flex px-4 py-2 text-sm text-shark-700 hover:bg-shark-100" role="menuitem" tabindex="-1">
+                    <a href="" class="flex px-4 py-2 text-sm text-shark-700 hover:bg-shark-100" role="menuitem"
+                        tabindex="-1">
                         <i class="fa-solid fa-gear text-lg mr-2"></i>
                         Settings
                     </a>
                     <form method="POST" action="{{ route('logout') }}" class="border-t">
                         @csrf
-                        <button type="submit" class="flex w-full px-4 py-2 text-left text-sm text-shark-700 hover:bg-shark-100" role="menuitem" tabindex="-1">
+                        <button type="submit"
+                            class="flex w-full px-4 py-2 text-left text-sm text-shark-700 hover:bg-shark-100"
+                            role="menuitem" tabindex="-1">
                             <i class="fa-solid fa-sign-out-alt text-lg mr-2"></i>
                             Sign Out
                         </button>
