@@ -36,9 +36,9 @@
                         <th class="p-2 border border-black text-center bg-yellow-400" colspan="5">Glamping Keong</th>
                         <th class="p-2 border border-black text-center bg-orange-400" colspan="3">Villa</th>
                         <th class="p-2 border border-black bg-pink-400" rowspan="2">TENT</th>
-                        <th class="p-2 border border-black bg-pink-400" rowspan="2">Total Tenda</th>
+                        <th class="p-2 border border-black bg-pink-400" rowspan="2">Total<br>Tenda</th>
                         <th class="p-2 border border-black" rowspan="2">DP</th>
-                        <th class="p-2 border border-black" rowspan="2">Tanggal Transfer</th>
+                        <th class="p-2 border border-black" rowspan="2">Tanggal<br>Transfer</th>
                         <th class="p-2 border border-black" rowspan="2">Catatan</th>
                         <th class="p-2 border border-black" rowspan="2">Action</th>
                     </tr>
