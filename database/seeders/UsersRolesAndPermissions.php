@@ -53,14 +53,14 @@ class UsersRolesAndPermissions extends Seeder
         // Create users
         $superAdminUser  = User::create([
             'name' => 'Super Admin',
-            'email' => 'superadmin@icrp.id',
+            'email' => 'superadmin@mail.com',
             'password' => bcrypt('admin123'), // Use a secure password
         ]);
         $superAdminUser ->assignRole($superAdminRole);
 
         $adminUser  = User::create([
             'name' => 'Admin',
-            'email' => 'admin@icrp.id',
+            'email' => 'admin@mail.com',
             'password' => bcrypt('admin123'), // Use a secure password
         ]);
         $adminUser ->assignRole($adminRole);
