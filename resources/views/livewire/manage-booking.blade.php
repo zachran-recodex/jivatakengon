@@ -52,103 +52,115 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($groupedBookings as $date => $bookings)
-                        @foreach ($bookings as $index => $booking)
-                            <tr>
-                                @if ($index == 0)
-                                    @php
-                                        $date = \Carbon\Carbon::parse($date);
-                                        $isWeekend = in_array($date->dayOfWeek, [5, 6, 0]); // 5 = Jumat, 6 = Sabtu, 0 = Minggu
-                                    @endphp
-                                    <td class="p-2 border border-black {{ $isWeekend ? 'bg-blue-200' : '' }}"
-                                        rowspan="{{ $bookings->count() }}">
-                                        {{ $date->format('(D) d/M/y') }}
+                    @if (count($groupedBookings) > 0)
+                        @foreach ($groupedBookings as $date => $bookings)
+                            @foreach ($bookings as $index => $booking)
+                                <tr>
+                                    @if ($index == 0)
+                                        @php
+                                            $date = \Carbon\Carbon::parse($date);
+                                            $isWeekend = in_array($date->dayOfWeek, [5, 6, 0]); // 5 = Jumat, 6 = Sabtu, 0 = Minggu
+                                        @endphp
+                                        <td class="p-2 border border-black {{ $isWeekend ? 'bg-blue-200' : '' }}"
+                                            rowspan="{{ $bookings->count() }}">
+                                            {{ $date->format('(D) d/M/y') }}
+                                        </td>
+                                    @endif
+
+                                    <td class="p-2 border border-black text-left">{{ $booking->name }}</td>
+
+                                    {{-- Glamping Keong 1-5 --}}
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        @php
+                                            $glampingArray = collect($bookings->pluck('glamping'))
+                                                ->flatten()
+                                                ->toArray(); // Pastikan jadi array numerik
+                                            $isBookedByThisPerson = in_array($i, $booking->glamping ?? []);
+                                            $isBookedByOthers = in_array($i, $glampingArray);
+                                            $status = $isBookedByThisPerson
+                                                ? 'bg-red-500'
+                                                : ($isBookedByOthers
+                                                    ? 'bg-black'
+                                                    : 'bg-green-500');
+                                        @endphp
+                                        <td class="p-2 border border-black {{ $status }}">
+                                            {{ $isBookedByThisPerson ? 'X' : '' }}
+                                        </td>
+                                    @endfor
+
+                                    {{-- Villa A, B, C --}}
+                                    @foreach (['A', 'B', 'C'] as $villa)
+                                        @php
+                                            $isBookedByThisPerson = in_array($villa, $booking->villa ?? []);
+                                            $isBookedByOthers = $bookings
+                                                ->where('villa', '!=', null)
+                                                ->pluck('villa')
+                                                ->flatten()
+                                                ->contains($villa);
+                                            $status = $isBookedByThisPerson
+                                                ? 'bg-red-500'
+                                                : ($isBookedByOthers
+                                                    ? 'bg-black'
+                                                    : 'bg-green-500');
+                                        @endphp
+                                        <td class="p-2 border border-black {{ $status }}">
+                                            {{ $isBookedByThisPerson ? 'X' : '' }}
+                                        </td>
+                                    @endforeach
+
+                                    {{-- TENT --}}
+                                    <td
+                                        class="p-2 border border-black {{ $booking->tent !== null ? 'bg-blue-400' : '' }}">
+                                        {{ $booking->tent !== null ? $booking->tent : '' }}
+                                        <!-- Tampilkan kosong jika null -->
                                     </td>
-                                @endif
 
-                                <td class="p-2 border border-black text-left">{{ $booking->name }}</td>
-
-                                {{-- Glamping Keong 1-5 --}}
-                                @for ($i = 1; $i <= 5; $i++)
-                                    @php
-                                        $glampingArray = collect($bookings->pluck('glamping'))->flatten()->toArray(); // Pastikan jadi array numerik
-                                        $isBookedByThisPerson = in_array($i, $booking->glamping ?? []);
-                                        $isBookedByOthers = in_array($i, $glampingArray);
-                                        $status = $isBookedByThisPerson
-                                            ? 'bg-red-500'
-                                            : ($isBookedByOthers
-                                                ? 'bg-black'
-                                                : 'bg-green-500');
-                                    @endphp
-                                    <td class="p-2 border border-black {{ $status }}">
-                                        {{ $isBookedByThisPerson ? 'X' : '' }}
+                                    {{-- Total Tenda --}}
+                                    <td
+                                        class="p-2 border border-black {{ $booking->total_tents !== null ? 'bg-green-400' : 'bg-black' }}">
+                                        {{ $booking->total_tents !== null ? $booking->total_tents : '' }}
+                                        <!-- Tampilkan kosong jika null -->
                                     </td>
-                                @endfor
 
-                                {{-- Villa A, B, C --}}
-                                @foreach (['A', 'B', 'C'] as $villa)
-                                    @php
-                                        $isBookedByThisPerson = in_array($villa, $booking->villa ?? []);
-                                        $isBookedByOthers = $bookings
-                                            ->where('villa', '!=', null)
-                                            ->pluck('villa')
-                                            ->flatten()
-                                            ->contains($villa);
-                                        $status = $isBookedByThisPerson
-                                            ? 'bg-red-500'
-                                            : ($isBookedByOthers
-                                                ? 'bg-black'
-                                                : 'bg-green-500');
-                                    @endphp
-                                    <td class="p-2 border border-black {{ $status }}">
-                                        {{ $isBookedByThisPerson ? 'X' : '' }}
+                                    {{-- DP --}}
+                                    <td class="p-2 border border-black">
+                                        {{ $booking->dp !== null ? number_format($booking->dp, 0, ',', '.') : '' }}
+                                        <!-- Tampilkan kosong jika null -->
                                     </td>
-                                @endforeach
 
-                                {{-- TENT --}}
-                                <td class="p-2 border border-black {{ $booking->tent !== null ? 'bg-blue-400' : '' }}">
-                                    {{ $booking->tent !== null ? $booking->tent : '' }}
-                                    <!-- Tampilkan kosong jika null -->
-                                </td>
+                                    {{-- Tanggal Transfer --}}
+                                    <td class="p-2 border border-black">
+                                        {{ $booking->transfer_date !== null ? \Carbon\Carbon::parse($booking->transfer_date)->format('d/M/Y') : '' }}
+                                        <!-- Tampilkan kosong jika null -->
+                                    </td>
 
-                                {{-- Total Tenda --}}
-                                <td
-                                    class="p-2 border border-black {{ $booking->total_tents !== null ? 'bg-green-400' : 'bg-black' }}">
-                                    {{ $booking->total_tents !== null ? $booking->total_tents : '' }}
-                                    <!-- Tampilkan kosong jika null -->
-                                </td>
+                                    {{-- Catatan --}}
+                                    <td class="p-2 border border-black">{{ $booking->note }}</td>
 
-                                {{-- DP --}}
-                                <td class="p-2 border border-black">
-                                    {{ $booking->dp !== null ? number_format($booking->dp, 0, ',', '.') : '' }}
-                                    <!-- Tampilkan kosong jika null -->
-                                </td>
-
-                                {{-- Tanggal Transfer --}}
-                                <td class="p-2 border border-black">
-                                    {{ $booking->transfer_date !== null ? \Carbon\Carbon::parse($booking->transfer_date)->format('d/M/Y') : '' }}
-                                    <!-- Tampilkan kosong jika null -->
-                                </td>
-
-                                {{-- Catatan --}}
-                                <td class="p-2 border border-black">{{ $booking->note }}</td>
-
-                                {{-- Aksi --}}
-                                <td class="p-2 border border-black">
-                                    <div class="flex justify-center items-center gap-3">
-                                        <button wire:click="edit({{ $booking->id }})"
-                                            class="bg-blue-100 p-2 rounded-lg text-blue-600 hover:text-blue-900">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </button>
-                                        <button wire:click="confirmBookingDeletion({{ $booking->id }})"
-                                            class="bg-red-100 p-2 rounded-lg text-red-600 hover:text-red-900">
-                                            <i class="fa-solid fa-trash-can"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
+                                    {{-- Aksi --}}
+                                    <td class="p-2 border border-black">
+                                        <div class="flex justify-center items-center gap-3">
+                                            <button wire:click="edit({{ $booking->id }})"
+                                                class="bg-blue-100 p-2 rounded-lg text-blue-600 hover:text-blue-900">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </button>
+                                            <button wire:click="confirmBookingDeletion({{ $booking->id }})"
+                                                class="bg-red-100 p-2 rounded-lg text-red-600 hover:text-red-900">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
                         @endforeach
-                    @endforeach
+                    @else
+                        <tr>
+                            <td colspan="16" class="p-4 text-center text-gray-500">
+                                Tidak ada data booking untuk bulan
+                                {{ \Carbon\Carbon::parse($selectedMonth)->format('F Y') }}.
+                            </td>
+                        </tr>
+                    @endif
                 </tbody>
             </table>
 
