@@ -30,7 +30,7 @@ class ManageBooking extends Component
     }
 
     /**
-     * Menyimpan atau memperbarui booking.
+     * Menyimpan atau memperbarui booking dengan validasi tambahan.
      */
     public function store()
     {
@@ -46,8 +46,36 @@ class ManageBooking extends Component
             'note' => 'nullable|string',
         ]);
 
+        // Ambil booking pada tanggal yang dipilih
+        $existingBookings = Booking::where('date', $this->date)->get();
+
+        // Cek Glamping yang sudah dipesan
+        $bookedGlamping = $existingBookings->pluck('glamping')->flatten()->unique()->toArray();
+        $conflictGlamping = array_intersect($this->glamping, $bookedGlamping);
+
+        // Cek Villa yang sudah dipesan
+        $bookedVilla = $existingBookings->pluck('villa')->flatten()->unique()->toArray();
+        $conflictVilla = array_intersect($this->villa, $bookedVilla);
+
+        // Jika ada konflik, buat pesan error yang lengkap
+        if (!empty($conflictGlamping) || !empty($conflictVilla)) {
+            $errorMessage = 'Pemesanan gagal! ';
+
+            if (!empty($conflictGlamping)) {
+                $errorMessage .= 'Glamping ' . implode(', ', $conflictGlamping) . ' sudah dipesan. ';
+            }
+
+            if (!empty($conflictVilla)) {
+                $errorMessage .= 'Villa ' . implode(', ', $conflictVilla) . ' sudah dipesan.';
+            }
+
+            $this->addError('booking_conflict', $errorMessage);
+            return;
+        }
+
+        // Simpan booking jika tidak ada konflik
         Booking::updateOrCreate(
-            ['id' => $this->id ?? null], // Perbaikan untuk mencegah error jika ID kosong
+            ['id' => $this->id ?? null],
             [
                 'name' => $this->name,
                 'date' => $this->date,

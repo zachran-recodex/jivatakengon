@@ -126,6 +126,12 @@
                     {{ $id ? 'Edit Booking' : 'Create Booking' }}
                 </div>
 
+                @if ($errors->has('booking_conflict'))
+                    <div class="text-red-500 text-sm">
+                        {{ $errors->first('booking_conflict') }}
+                    </div>
+                @endif
+
                 <div class="mt-4 grid grid-cols-2 gap-4">
 
                     <!-- Date -->
