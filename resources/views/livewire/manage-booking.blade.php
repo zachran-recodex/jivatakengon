@@ -1,8 +1,17 @@
 <div class="space-y-6">
     <!-- Page Header -->
     <div class="sm:flex sm:items-center sm:justify-between">
-        <div>
+        <div class="flex items-center gap-4">
             <h1 class="text-2xl font-semibold text-shark-950">Manage Booking</h1>
+            <!-- Month Filter Dropdown -->
+            <select wire:model.live="selectedMonth"
+                class="rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm">
+                @foreach ($months as $month)
+                    <option value="{{ $month['value'] }}">
+                        {{ $month['label'] }}
+                    </option>
+                @endforeach
+            </select>
         </div>
         <button wire:click="create()"
             class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary/80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
@@ -16,6 +25,11 @@
         <div class="overflow-x-auto">
             <table class="w-full border-collapse border border-black text-sm text-center">
                 <thead>
+                    <tr>
+                        <th colspan="16" class="p-2 border border-black bg-primary text-white text-xl">
+                            {{ \Carbon\Carbon::parse($selectedMonth)->format('F Y') }}
+                        </th>
+                    </tr>
                     <tr class="bg-shark-200 text-shark-900 border border-black">
                         <th class="p-2 border border-black bg-sky-400" rowspan="2">Tanggal</th>
                         <th class="p-2 border border-black" rowspan="2">Atas Nama</th>
@@ -26,6 +40,7 @@
                         <th class="p-2 border border-black" rowspan="2">DP</th>
                         <th class="p-2 border border-black" rowspan="2">Tanggal Transfer</th>
                         <th class="p-2 border border-black" rowspan="2">Catatan</th>
+                        <th class="p-2 border border-black" rowspan="2">Action</th>
                     </tr>
                     <tr class="bg-shark-200 text-shark-900 border border-black">
                         @for ($i = 1; $i <= 5; $i++)
@@ -41,9 +56,16 @@
                         @foreach ($bookings as $index => $booking)
                             <tr>
                                 @if ($index == 0)
-                                    <td class="p-2 border border-black" rowspan="{{ $bookings->count() }}">
-                                        {{ \Carbon\Carbon::parse($date)->format('(D) d/M/y') }}</td>
+                                    @php
+                                        $date = \Carbon\Carbon::parse($date);
+                                        $isWeekend = in_array($date->dayOfWeek, [5, 6, 0]); // 5 = Jumat, 6 = Sabtu, 0 = Minggu
+                                    @endphp
+                                    <td class="p-2 border border-black {{ $isWeekend ? 'bg-blue-200' : '' }}"
+                                        rowspan="{{ $bookings->count() }}">
+                                        {{ $date->format('(D) d/M/y') }}
+                                    </td>
                                 @endif
+
                                 <td class="p-2 border border-black text-left">{{ $booking->name }}</td>
 
                                 {{-- Glamping Keong 1-5 --}}
@@ -110,11 +132,66 @@
 
                                 {{-- Catatan --}}
                                 <td class="p-2 border border-black">{{ $booking->note }}</td>
+
+                                {{-- Aksi --}}
+                                <td class="p-2 border border-black">
+                                    <div class="flex justify-center items-center gap-3">
+                                        <button wire:click="edit({{ $booking->id }})"
+                                            class="bg-blue-100 p-2 rounded-lg text-blue-600 hover:text-blue-900">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </button>
+                                        <button wire:click="confirmBookingDeletion({{ $booking->id }})"
+                                            class="bg-red-100 p-2 rounded-lg text-red-600 hover:text-red-900">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </button>
+                                    </div>
+                                </td>
                             </tr>
                         @endforeach
                     @endforeach
                 </tbody>
             </table>
+
+            <div class="p-4 border border-black">
+                <h3 class="font-medium mb-2">Keterangan Warna:</h3>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <!-- Weekend Date -->
+                    <div class="flex items-center gap-2">
+                        <div class="w-6 h-6 bg-blue-200"></div>
+                        <span>Weekend (Jum'at - Minggu)</span>
+                    </div>
+
+                    <!-- Glamping & Villa Status -->
+                    <div class="flex items-center gap-2">
+                        <div class="w-6 h-6 bg-green-500"></div>
+                        <span>Available</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-6 h-6 bg-red-500"></div>
+                        <span>Booked</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-6 h-6 bg-black"></div>
+                        <span>Not Available<br>(Unit Booked with same Date)</span>
+                    </div>
+
+                    <!-- Tent Status -->
+                    <div class="flex items-center gap-2">
+                        <div class="w-6 h-6 bg-blue-400"></div>
+                        <span>Tent Terisi</span>
+                    </div>
+
+                    <!-- Total Tenda Status -->
+                    <div class="flex items-center gap-2">
+                        <div class="w-6 h-6 bg-green-400"></div>
+                        <span>Total Tenda Terisi</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-6 h-6 bg-black"></div>
+                        <span>Total Tenda Kosong</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -256,4 +333,27 @@
         </form>
     </x-modal>
 
+    <!-- Delete Confirmation Modal -->
+    <x-modal wire:model="confirmingBookingDeletion" max-width="md">
+        <div class="px-6 py-4">
+            <div class="text-lg font-medium text-gray-900">
+                Delete Booking
+            </div>
+
+            <div class="mt-4 text-sm text-gray-600">
+                Are you sure you want to delete this booking? This action cannot be undone.
+            </div>
+        </div>
+
+        <div class="flex flex-row justify-end gap-4 px-6 py-4 bg-gray-100 text-right">
+            <button type="button" wire:click="$set('confirmingBookingDeletion', false)"
+                class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary/80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                Cancel
+            </button>
+            <button type="button" wire:click="destroy"
+                class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                Delete
+            </button>
+        </div>
+    </x-modal>
 </div>

@@ -4,19 +4,48 @@ namespace App\Livewire;
 
 use App\Models\Booking;
 use Livewire\Component;
+use Carbon\Carbon;
 
 class ManageBooking extends Component
 {
     public $id, $name, $date, $glamping = [], $villa = [], $tent, $total_tents, $dp, $transfer_date, $note;
     public $showingFormModal = false;
+    public $selectedMonth;
+    public $confirmingBookingDeletion = false;
+    public $bookingToDelete = null;
+
+
+    public function mount()
+    {
+        // Set default bulan saat ini
+        $this->selectedMonth = Carbon::now()->format('Y-m');
+    }
 
     /**
-     * Menampilkan data booking dalam tabel.
+     * Menampilkan data booking dalam tabel berdasarkan bulan yang dipilih.
      */
     public function render()
     {
+        $bookings = Booking::query()
+            ->whereYear('date', Carbon::parse($this->selectedMonth)->year)
+            ->whereMonth('date', Carbon::parse($this->selectedMonth)->month)
+            ->orderBy('date')
+            ->get()
+            ->groupBy('date');
+
+        // Generate list bulan untuk dropdown (12 bulan ke depan dan 12 bulan ke belakang)
+        $months = collect();
+        for ($i = -12; $i <= 12; $i++) {
+            $date = Carbon::now()->addMonths($i)->startOfMonth();
+            $months->push([
+                'value' => $date->format('Y-m'),
+                'label' => $date->format('F Y')
+            ]);
+        }
+
         return view('livewire.manage-booking', [
-            'groupedBookings' => Booking::orderBy('date')->get()->groupBy('date'),
+            'groupedBookings' => $bookings,
+            'months' => $months
         ]);
     }
 
@@ -39,8 +68,8 @@ class ManageBooking extends Component
             'date' => 'required|date',
             'glamping' => 'array',
             'villa' => 'array',
-            'tent' => 'nullable|integer|min:0',
-            'total_tents' => 'nullable|integer|min:0',
+            'tent' => 'nullable|integer',
+            'total_tents' => 'nullable|integer',
             'dp' => 'nullable|numeric|min:0',
             'transfer_date' => 'nullable|date',
             'note' => 'nullable|string',
@@ -115,13 +144,20 @@ class ManageBooking extends Component
         $this->showingFormModal = true;
     }
 
-    /**
-     * Menghapus booking.
-     */
-    public function delete($id)
+    public function confirmBookingDeletion($id)
     {
-        Booking::findOrFail($id)->delete();
-        session()->flash('message', 'Booking deleted successfully.');
+        $this->bookingToDelete = Booking::find($id);
+        $this->confirmingBookingDeletion = true;
+    }
+
+    public function destroy()
+    {
+        if ($this->bookingToDelete) {
+            $this->bookingToDelete->delete();
+            session()->flash('message', 'Booking deleted successfully.');
+            $this->confirmingBookingDeletion = false;
+            $this->bookingToDelete = null;
+        }
     }
 
     /**
