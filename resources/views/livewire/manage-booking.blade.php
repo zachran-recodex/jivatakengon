@@ -31,7 +31,7 @@
                         </th>
                     </tr>
                     <tr class="bg-shark-200 text-shark-900 border border-black">
-                        <th class="p-2 border border-black bg-sky-400" rowspan="2">Tanggal</th>
+                        <th class="p-2 border border-black" rowspan="2">Tanggal</th>
                         <th class="p-2 border border-black" rowspan="2">Atas Nama</th>
                         <th class="p-2 border border-black text-center bg-yellow-400" colspan="5">Glamping Keong</th>
                         <th class="p-2 border border-black text-center bg-orange-400" colspan="3">Villa</th>
