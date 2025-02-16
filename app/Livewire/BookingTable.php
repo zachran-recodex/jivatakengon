@@ -9,27 +9,37 @@ use Carbon\CarbonPeriod;
 
 class BookingTable extends Component
 {
+    /**
+     * Render komponen untuk menampilkan tabel booking.
+     */
     public function render()
     {
+        // Tanggal hari ini
         $today = Carbon::now();
+
+        // Tanggal mulai: 3 hari sebelum hari ini
         $startDate = $today->copy()->subDays(3);
+
+        // Tanggal akhir: akhir bulan ini
         $endDate = $today->copy()->endOfMonth();
 
-        // Generate all dates in the range
+        // Generate semua tanggal dalam rentang dari $startDate hingga $endDate
         $period = CarbonPeriod::create($startDate, $endDate);
 
-        // Get bookings and index them by date
+        // Ambil data booking dalam rentang tanggal yang ditentukan
         $bookings = Booking::whereBetween('date', [$startDate, $endDate])
-            ->orderBy('date')
+            ->orderBy('date') // Urutkan berdasarkan tanggal
             ->get()
             ->groupBy(function($booking) {
+                // Kelompokkan booking berdasarkan tanggal dalam format 'Y-m-d'
                 return $booking->date->format('Y-m-d');
             });
 
+        // Return view dengan data yang diperlukan
         return view('livewire.booking-table', [
-            'dateRange' => $period,
-            'bookings' => $bookings,
-            'currentMonth' => $today->format('F Y')
+            'dateRange' => $period, // Rentang tanggal yang akan ditampilkan
+            'bookings' => $bookings, // Data booking yang sudah dikelompokkan
+            'currentMonth' => $today->format('F Y') // Bulan dan tahun saat ini (contoh: "October 2023")
         ]);
     }
 }
