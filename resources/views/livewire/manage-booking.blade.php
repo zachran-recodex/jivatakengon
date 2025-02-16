@@ -333,7 +333,7 @@
 
             <!-- Footer -->
             <div class="flex justify-end gap-4 px-6 py-4 bg-gray-100">
-                <button type="button" wire:click="$set('showingFormModal', false)"
+                <button type="button" wire:click="closeModal"
                     class="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
                     Cancel
                 </button>

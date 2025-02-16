@@ -231,6 +231,7 @@ class ManageBooking extends Component
      */
     public function closeModal()
     {
+        $this->confirmingBookingDeletion = false; // Sembunyikan modal delete
         $this->showingFormModal = false; // Sembunyikan modal form
         $this->resetInputFields(); // Reset input fields
         $this->resetErrorBag(); // Reset error bag
