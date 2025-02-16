@@ -358,8 +358,8 @@
         </div>
 
         <div class="flex flex-row justify-end gap-4 px-6 py-4 bg-gray-100 text-right">
-            <button type="button" wire:click="$set('confirmingBookingDeletion', false)"
-                class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary/80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+            <button type="button" wire:click="closeModal"
+                class="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
                 Cancel
             </button>
             <button type="button" wire:click="destroy"

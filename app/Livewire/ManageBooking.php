@@ -14,7 +14,6 @@ class ManageBooking extends Component
     public $confirmingBookingDeletion = false;
     public $bookingToDelete = null;
 
-
     public function mount()
     {
         // Set default bulan saat ini
@@ -33,9 +32,9 @@ class ManageBooking extends Component
             ->get()
             ->groupBy('date');
 
-        // Generate list bulan untuk dropdown (12 bulan ke depan dan 12 bulan ke belakang)
+        // Generate list bulan untuk dropdown (12 bulan ke depan dan 3 bulan ke belakang)
         $months = collect();
-        for ($i = -12; $i <= 12; $i++) {
+        for ($i = -3; $i <= 12; $i++) {
             $date = Carbon::now()->addMonths($i)->startOfMonth();
             $months->push([
                 'value' => $date->format('Y-m'),
@@ -63,6 +62,7 @@ class ManageBooking extends Component
      */
     public function store()
     {
+        // Validate input data
         $this->validate([
             'name' => 'required|string|max:255',
             'date' => 'required|date',
@@ -75,53 +75,82 @@ class ManageBooking extends Component
             'note' => 'nullable|string',
         ]);
 
-        // Ambil booking pada tanggal yang dipilih
-        $existingBookings = Booking::where('date', $this->date)->get();
+        // Ensure arrays are initialized
+        $this->glamping = $this->glamping ?: [];
+        $this->villa = $this->villa ?: [];
 
-        // Cek Glamping yang sudah dipesan
-        $bookedGlamping = $existingBookings->pluck('glamping')->flatten()->unique()->toArray();
-        $conflictGlamping = array_intersect($this->glamping, $bookedGlamping);
+        try {
+            // Ambil booking pada tanggal yang dipilih, kecuali booking yang sedang diedit
+            $existingBookings = Booking::where('date', $this->date)
+                ->when($this->id, function($query) {
+                    return $query->where('id', '!=', $this->id);
+                })
+                ->get();
 
-        // Cek Villa yang sudah dipesan
-        $bookedVilla = $existingBookings->pluck('villa')->flatten()->unique()->toArray();
-        $conflictVilla = array_intersect($this->villa, $bookedVilla);
+            // Cek Glamping yang sudah dipesan
+            $bookedGlamping = $existingBookings->pluck('glamping')
+                ->flatten()
+                ->filter()
+                ->unique()
+                ->toArray();
+            $conflictGlamping = array_intersect($this->glamping, $bookedGlamping);
 
-        // Jika ada konflik, buat pesan error yang lengkap
-        if (!empty($conflictGlamping) || !empty($conflictVilla)) {
-            $errorMessage = 'Pemesanan gagal! ';
+            // Cek Villa yang sudah dipesan
+            $bookedVilla = $existingBookings->pluck('villa')
+                ->flatten()
+                ->filter()
+                ->unique()
+                ->toArray();
+            $conflictVilla = array_intersect($this->villa, $bookedVilla);
 
-            if (!empty($conflictGlamping)) {
-                $errorMessage .= 'Glamping ' . implode(', ', $conflictGlamping) . ' sudah dipesan. ';
+            // Jika ada konflik, buat pesan error yang lengkap
+            if (!empty($conflictGlamping) || !empty($conflictVilla)) {
+                $errorMessage = 'Pemesanan gagal! ';
+
+                if (!empty($conflictGlamping)) {
+                    $errorMessage .= 'Glamping ' . implode(', ', $conflictGlamping) . ' sudah dipesan. ';
+                }
+
+                if (!empty($conflictVilla)) {
+                    $errorMessage .= 'Villa ' . implode(', ', $conflictVilla) . ' sudah dipesan.';
+                }
+
+                $this->addError('booking_conflict', $errorMessage);
+                return;
             }
 
-            if (!empty($conflictVilla)) {
-                $errorMessage .= 'Villa ' . implode(', ', $conflictVilla) . ' sudah dipesan.';
-            }
+            // Simpan booking jika tidak ada konflik
+            $booking = Booking::updateOrCreate(
+                ['id' => $this->id],
+                [
+                    'name' => $this->name,
+                    'date' => $this->date,
+                    'glamping' => $this->glamping,
+                    'villa' => $this->villa,
+                    'tent' => $this->tent,
+                    'total_tents' => $this->total_tents,
+                    'dp' => $this->dp,
+                    'transfer_date' => $this->transfer_date,
+                    'note' => $this->note,
+                ]
+            );
 
-            $this->addError('booking_conflict', $errorMessage);
+            // Set flash message berdasarkan operasi yang dilakukan
+            $message = $this->id
+                ? 'Booking berhasil diperbarui.'
+                : 'Booking berhasil dibuat.';
+
+            session()->flash('message', $message);
+
+            // Reset form dan tutup modal
+            $this->resetInputFields();
+            $this->showingFormModal = false;
+
+        } catch (\Exception $e) {
+            // Tangani error yang mungkin terjadi
+            $this->addError('booking_error', 'Terjadi kesalahan saat menyimpan booking: ' . $e->getMessage());
             return;
         }
-
-        // Simpan booking jika tidak ada konflik
-        Booking::updateOrCreate(
-            ['id' => $this->id ?? null],
-            [
-                'name' => $this->name,
-                'date' => $this->date,
-                'glamping' => $this->glamping,
-                'villa' => $this->villa,
-                'tent' => $this->tent,
-                'total_tents' => $this->total_tents,
-                'dp' => $this->dp,
-                'transfer_date' => $this->transfer_date,
-                'note' => $this->note,
-            ]
-        );
-
-        session()->flash('message', $this->id ? 'Booking updated successfully.' : 'Booking created successfully.');
-
-        $this->resetInputFields();
-        $this->showingFormModal = false;
     }
 
     /**
@@ -133,8 +162,18 @@ class ManageBooking extends Component
         $this->id = $booking->id;
         $this->name = $booking->name;
         $this->date = $booking->date;
-        $this->glamping = is_array($booking->glamping) ? $booking->glamping : json_decode($booking->glamping, true) ?? [];
-        $this->villa = is_array($booking->villa) ? $booking->villa : json_decode($booking->villa, true) ?? [];
+
+        // More robust array handling
+        try {
+            $this->glamping = is_array($booking->glamping) ? $booking->glamping :
+                (is_string($booking->glamping) ? json_decode($booking->glamping, true) : []);
+            $this->villa = is_array($booking->villa) ? $booking->villa :
+                (is_string($booking->villa) ? json_decode($booking->villa, true) : []);
+        } catch (\JsonException $e) {
+            $this->glamping = [];
+            $this->villa = [];
+        }
+
         $this->tent = $booking->tent;
         $this->total_tents = $booking->total_tents;
         $this->dp = $booking->dp;
@@ -175,5 +214,13 @@ class ManageBooking extends Component
         $this->dp = null;
         $this->transfer_date = null;
         $this->note = null;
+    }
+
+    public function closeModal()
+    {
+        $this->showingFormModal = false;
+        $this->resetInputFields();
+        $this->resetErrorBag();
+        $this->resetValidation();
     }
 }
