@@ -164,7 +164,7 @@
                 </tbody>
             </table>
 
-            <div class="p-4 border border-black">
+            <div class="w-full border-collapse border border-black text-sm p-4">
                 <h3 class="font-medium mb-2">Keterangan Warna:</h3>
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     <!-- Weekend Date -->
