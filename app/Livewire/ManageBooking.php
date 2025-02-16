@@ -8,12 +8,14 @@ use Carbon\Carbon;
 
 class ManageBooking extends Component
 {
+    // Properti untuk menyimpan data booking dan state komponen
     public $id, $name, $date, $glamping = [], $villa = [], $tent, $total_tents, $dp, $transfer_date, $note;
-    public $showingFormModal = false;
-    public $selectedMonth;
-    public $confirmingBookingDeletion = false;
-    public $bookingToDelete = null;
+    public $showingFormModal = false; // Menampilkan atau menyembunyikan modal form
+    public $selectedMonth; // Bulan yang dipilih untuk menampilkan booking
+    public $confirmingBookingDeletion = false; // Menampilkan konfirmasi penghapusan booking
+    public $bookingToDelete = null; // Booking yang akan dihapus
 
+    // Method yang dijalankan saat komponen di-mount (diinisialisasi)
     public function mount()
     {
         // Set default bulan saat ini
@@ -25,12 +27,13 @@ class ManageBooking extends Component
      */
     public function render()
     {
+        // Ambil data booking berdasarkan tahun dan bulan yang dipilih
         $bookings = Booking::query()
             ->whereYear('date', Carbon::parse($this->selectedMonth)->year)
             ->whereMonth('date', Carbon::parse($this->selectedMonth)->month)
             ->orderBy('date')
             ->get()
-            ->groupBy('date');
+            ->groupBy('date'); // Kelompokkan booking berdasarkan tanggal
 
         // Generate list bulan untuk dropdown (12 bulan ke depan dan 3 bulan ke belakang)
         $months = collect();
@@ -42,6 +45,7 @@ class ManageBooking extends Component
             ]);
         }
 
+        // Return view dengan data yang diperlukan
         return view('livewire.manage-booking', [
             'groupedBookings' => $bookings,
             'months' => $months
@@ -49,12 +53,12 @@ class ManageBooking extends Component
     }
 
     /**
-     * Membuka modal form untuk create booking.
+     * Membuka modal form untuk membuat booking baru.
      */
     public function create()
     {
-        $this->resetInputFields();
-        $this->showingFormModal = true;
+        $this->resetInputFields(); // Reset input fields
+        $this->showingFormModal = true; // Tampilkan modal form
     }
 
     /**
@@ -62,7 +66,7 @@ class ManageBooking extends Component
      */
     public function store()
     {
-        // Validate input data
+        // Validasi input data
         $this->validate([
             'name' => 'required|string|max:255',
             'date' => 'required|date',
@@ -75,7 +79,7 @@ class ManageBooking extends Component
             'note' => 'nullable|string',
         ]);
 
-        // Ensure arrays are initialized
+        // Pastikan array glamping dan villa diinisialisasi
         $this->glamping = $this->glamping ?: [];
         $this->villa = $this->villa ?: [];
 
@@ -163,7 +167,7 @@ class ManageBooking extends Component
         $this->name = $booking->name;
         $this->date = $booking->date;
 
-        // More robust array handling
+        // Penanganan array yang lebih robust
         try {
             $this->glamping = is_array($booking->glamping) ? $booking->glamping :
                 (is_string($booking->glamping) ? json_decode($booking->glamping, true) : []);
@@ -180,22 +184,28 @@ class ManageBooking extends Component
         $this->transfer_date = $booking->transfer_date;
         $this->note = $booking->note;
 
-        $this->showingFormModal = true;
+        $this->showingFormModal = true; // Tampilkan modal form
     }
 
+    /**
+     * Menampilkan konfirmasi penghapusan booking.
+     */
     public function confirmBookingDeletion($id)
     {
         $this->bookingToDelete = Booking::find($id);
-        $this->confirmingBookingDeletion = true;
+        $this->confirmingBookingDeletion = true; // Tampilkan modal konfirmasi penghapusan
     }
 
+    /**
+     * Menghapus booking yang dipilih.
+     */
     public function destroy()
     {
         if ($this->bookingToDelete) {
             $this->bookingToDelete->delete();
             session()->flash('message', 'Booking deleted successfully.');
-            $this->confirmingBookingDeletion = false;
-            $this->bookingToDelete = null;
+            $this->confirmingBookingDeletion = false; // Sembunyikan modal konfirmasi penghapusan
+            $this->bookingToDelete = null; // Reset booking yang akan dihapus
         }
     }
 
@@ -216,11 +226,14 @@ class ManageBooking extends Component
         $this->note = null;
     }
 
+    /**
+     * Menutup modal dan mereset form.
+     */
     public function closeModal()
     {
-        $this->showingFormModal = false;
-        $this->resetInputFields();
-        $this->resetErrorBag();
-        $this->resetValidation();
+        $this->showingFormModal = false; // Sembunyikan modal form
+        $this->resetInputFields(); // Reset input fields
+        $this->resetErrorBag(); // Reset error bag
+        $this->resetValidation(); // Reset validasi
     }
 }
